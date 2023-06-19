@@ -1,1 +1,0 @@
-export const STANDARD_POOL_LIFETIME = 900000;
