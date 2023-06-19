@@ -1,2 +1,2 @@
-export type { Response } from './types';
+export type { SocketResponse } from './types';
 export { socket } from './socket';

@@ -1,6 +1,6 @@
 {
   "name": "@master_kufa/client-tools",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MasterKufa/client-tools.git"
@@ -31,9 +31,6 @@
   "exports": {
     ".": "./dist/index.js"
   },
-  "files": [
-    "dist",
-    "types.d.ts"
-  ],
+  "module": "./build/index.js",
   "types": "./types.d.ts"
 }

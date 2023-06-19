@@ -1,11 +1,13 @@
 import { Socket, io } from 'socket.io-client';
 import { nanoid } from 'nanoid';
-import { Response } from './types';
+import { SocketResponse } from './types';
 import { createStore, createEvent } from 'effector';
 
 class AppSocket {
-  private pendingRequests: Record<string, (response: Response<any>) => void> =
-    {};
+  private pendingRequests: Record<
+    string,
+    (response: SocketResponse<any>) => void
+  > = {};
 
   client: Socket;
   $isConnected = createStore(false);
@@ -18,7 +20,7 @@ class AppSocket {
     this.init();
   }
   init() {
-    this.client.onAny((_, response: Response) => {
+    this.client.onAny((_, response: SocketResponse) => {
       if (response.id && this.pendingRequests[response.id]) {
         this.pendingRequests[response.id](response);
         Reflect.deleteProperty(this.pendingRequests, response.id);
@@ -35,7 +37,7 @@ class AppSocket {
     this.client.emit(actions, { ...payload, id });
 
     return new Promise((resolve, reject) => {
-      this.pendingRequests[id] = (response: Response<V>) => {
+      this.pendingRequests[id] = (response: SocketResponse<V>) => {
         Reflect.deleteProperty(response, id);
         response.error ? reject(response.error) : resolve(response.payload);
       };

@@ -1,19 +1,18 @@
 import { Event, Store } from 'effector';
 import { Socket } from 'socket.io-client';
-import { Response } from './src/client-socket';
-import { PayloadType } from './src/notification';
-import { appSocket } from './src/client-socket/socket';
+import { socket, SocketResponse } from './src/client-socket';
+import * as Notification from './src/notification';
 
 declare namespace Notification {
-  type Payload = PayloadType;
-  declare const Component: React.FC;
-  declare const add: Event;
+  type PayloadType = Notification.PayloadType;
+  declare const Component: typeof Notification.Component;
+  declare const add: typeof Notification.add;
 }
 
 declare namespace socket {
-  type Response = Response;
+  type Response = SocketResponse;
 
-  declare const client: typeof appSocket.client;
-  declare const $isConnected: typeof appSocket.$isConnected;
-  declare const emitWithAnswer: typeof appSocket.emitWithAnswer;
+  declare const client: typeof socket.client;
+  declare const $isConnected: typeof socket.$isConnected;
+  declare const emitWithAnswer: typeof socket.emitWithAnswer;
 }
