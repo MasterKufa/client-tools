@@ -1,15 +1,40 @@
 {
-  "name": "client-tools",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@master_kufa/client-tools",
+  "version": "0.16.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MasterKufa/client-tools.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MasterKufa/client-tools/issues"
+  },
+  "homepage": "https://github.com/MasterKufa/client-tools#readme",
+  "main": "./build/static/",
+  "exports": {
+    ".": "./build/index.js"
+  },
+  "files": [
+    "build",
+    "types.d.ts"
+  ],
+  "types": "./types.d.ts",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.13.5",
+    "effector-react": "^22.5.3",
+    "lodash": "^4.17.21",
+    "nanoid": "^4.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "socket.io-client": "^4.6.2",
     "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.195",
+    "@typescript-eslint/eslint-plugin": "^5.59.7",
+    "@typescript-eslint/parser": "^5.59.7"
   },
   "scripts": {
     "start": "react-scripts start",
