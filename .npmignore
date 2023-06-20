@@ -1,5 +1,6 @@
-node_modules
-build
-public
-.npmignore
+/node_modules
 .gitignore
+.npmignore
+package-lock.json
+tsconfig.json
+README.md

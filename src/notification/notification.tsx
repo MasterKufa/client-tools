@@ -1,7 +1,7 @@
-import { Snackbar, Alert } from '@mui/material';
-import { useUnit } from 'effector-react';
-import { $currentNotification, deleteNotification } from './notification.model';
-import React from 'react';
+import { Snackbar, Alert } from "@mui/material";
+import { useUnit } from "effector-react";
+import { $currentNotification, deleteNotification } from "./notification.model";
+import * as React from "react";
 
 export const Component = () => {
   const currentNotification = useUnit($currentNotification);
@@ -11,7 +11,7 @@ export const Component = () => {
 
   return (
     <Snackbar
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
       open={Boolean(currentNotification)}
       autoHideDuration={6000}
       onClose={() => actions.deleteNotification(currentNotification.id)}
