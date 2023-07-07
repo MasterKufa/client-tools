@@ -1,7 +1,7 @@
-import { Socket, io } from 'socket.io-client';
-import { nanoid } from 'nanoid';
-import { SocketResponse } from './types';
-import { createStore, createEvent } from 'effector';
+import { Socket, io } from "socket.io-client";
+import { nanoid } from "nanoid";
+import { SocketResponse } from "./types";
+import { createStore, createEvent } from "effector";
 
 class AppSocket {
   private pendingRequests: Record<
@@ -14,31 +14,31 @@ class AppSocket {
 
   connect(url: string) {
     this.client = io(url, {
-      transports: ['websocket'],
+      transports: ["websocket"],
     });
 
     this.init();
   }
   private init() {
     this.client.onAny((_, response: SocketResponse) => {
-      if (response.id && this.pendingRequests[response.id]) {
-        this.pendingRequests[response.id](response);
-        Reflect.deleteProperty(this.pendingRequests, response.id);
+      if (response.requestId && this.pendingRequests[response.requestId]) {
+        this.pendingRequests[response.requestId](response);
+        Reflect.deleteProperty(this.pendingRequests, response.requestId);
       }
     });
 
     const socketConnected = createEvent();
-    this.client.on('connect', socketConnected);
+    this.client.on("connect", socketConnected);
     this.$isConnected.on(socketConnected, () => true);
   }
 
   emitWithAnswer<T, V>(actions: string, payload: T): Promise<V> {
-    const id = nanoid();
-    this.client.emit(actions, { ...payload, id });
+    const requestId = nanoid();
+    this.client.emit(actions, { ...payload, requestId });
 
     return new Promise((resolve, reject) => {
-      this.pendingRequests[id] = (response: SocketResponse<V>) => {
-        Reflect.deleteProperty(response, id);
+      this.pendingRequests[requestId] = (response: SocketResponse<V>) => {
+        Reflect.deleteProperty(response, requestId);
         response.error ? reject(response.error) : resolve(response.payload);
       };
     });
