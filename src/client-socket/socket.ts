@@ -32,7 +32,7 @@ class AppSocket {
     this.$isConnected.on(socketConnected, () => true);
   }
 
-  emitWithAnswer<T, V>(actions: string, payload: T): Promise<V> {
+  emitWithAnswer<T, V>(actions: string, payload?: T): Promise<V> {
     const requestId = nanoid();
     this.client.emit(actions, { ...payload, requestId });
 
