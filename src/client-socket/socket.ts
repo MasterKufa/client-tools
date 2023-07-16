@@ -1,7 +1,8 @@
 import { Socket, io } from "socket.io-client";
 import { nanoid } from "nanoid";
-import { SocketResponse } from "./types";
+import { SocketErrors, SocketResponse } from "./types";
 import { createStore, createEvent } from "effector";
+import { authTools } from "../authorization-tools";
 
 class AppSocket {
   private pendingRequests: Record<
@@ -12,9 +13,26 @@ class AppSocket {
   client: Socket;
   $isConnected = createStore(false);
 
-  connect(url: string) {
+  buildAuth() {
+    return { token: authTools.getAuthToken() };
+  }
+  connect(url: string, unAuthorizedFallbackUrl?: string) {
     this.client = io(url, {
       transports: ["websocket"],
+      auth: this.buildAuth(),
+    });
+
+    this.client.on("connect_error", (err) => {
+      if (
+        unAuthorizedFallbackUrl &&
+        err.message === SocketErrors.UNAUTHORIZED
+      ) {
+        this.client.disconnect();
+        authTools.handleUnAuthorized(unAuthorizedFallbackUrl, () => {
+          this.client.auth = this.buildAuth();
+          this.client.connect();
+        });
+      }
     });
 
     this.init();

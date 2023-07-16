@@ -3,3 +3,7 @@ export type SocketResponse<T = "success" | "error"> = {
   error?: string;
   payload: T;
 };
+
+export enum SocketErrors {
+  UNAUTHORIZED = "UNAUTHORIZED",
+}
