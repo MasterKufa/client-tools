@@ -10,7 +10,7 @@ export const handleUnAuthorized = (
 
   authFrame.src = authPath;
   authFrame.style.cssText =
-    "position:fixed; z-index: 999; width: 100vw; height: 100vh; top: 0;";
+    "position:fixed; z-index: 999; width: 100vw; height: 100vh; top: 0; border: none;";
 
   document.body.append(authFrame);
 

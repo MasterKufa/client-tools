@@ -17,7 +17,10 @@ class AppSocket {
     return { token: authTools.getAuthToken() };
   }
   connect(url: string, unAuthorizedFallbackUrl?: string) {
-    this.client = io(url, {
+    const clientUrl = new URL(url);
+
+    this.client = io(clientUrl.origin, {
+      path: clientUrl.pathname ? `${clientUrl.pathname}/socket.io` : undefined,
       transports: ["websocket"],
       auth: this.buildAuth(),
     });
