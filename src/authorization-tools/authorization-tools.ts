@@ -1,3 +1,5 @@
+import { adjustAppHeight } from "../helpers";
+
 const AUTH_TOKEN_KEY = "kaluger-auth-token";
 
 export const getAuthToken = () => localStorage.getItem(AUTH_TOKEN_KEY);
@@ -9,8 +11,7 @@ export const handleUnAuthorized = (
   const authFrame = document.createElement("iframe");
 
   authFrame.src = authPath;
-  authFrame.style.cssText =
-    "position:fixed; z-index: 999; width: 100vw; height: 100vh; top: 0; border: none;";
+  authFrame.style.cssText = `position: fixed; z-index: 999; width: 100vw; height: ${adjustAppHeight()}; top: 0; border: none;`;
 
   document.body.append(authFrame);
 
