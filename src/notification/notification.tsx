@@ -15,6 +15,7 @@ export const Component = () => {
       open={Boolean(currentNotification)}
       autoHideDuration={6000}
       onClose={() => actions.deleteNotification(currentNotification.id)}
+      onClick={() => actions.deleteNotification(currentNotification.id)}
     >
       <Alert severity={currentNotification.type}>
         {currentNotification.message}
