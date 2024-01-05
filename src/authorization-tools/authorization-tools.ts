@@ -1,6 +1,7 @@
 import { adjustAppHeight } from "../helpers";
 
 const AUTH_TOKEN_KEY = "kaluger-auth-token";
+export const SET_AUTH_TOKEN_EVENT = "token-set";
 
 export const getAuthToken = () => localStorage.getItem(AUTH_TOKEN_KEY);
 
@@ -18,6 +19,7 @@ export const handleUnAuthorized = (
   window.addEventListener("message", ({ data }) => {
     if (data.type === AUTH_TOKEN_KEY) {
       localStorage.setItem(AUTH_TOKEN_KEY, data.token);
+      window.dispatchEvent(new Event(SET_AUTH_TOKEN_EVENT));
       authFrame.remove();
       onAuthorized?.();
     }
