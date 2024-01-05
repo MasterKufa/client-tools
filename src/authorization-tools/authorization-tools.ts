@@ -4,6 +4,7 @@ const AUTH_TOKEN_KEY = "kaluger-auth-token";
 export const SET_AUTH_TOKEN_EVENT = "token-set";
 
 export const getAuthToken = () => localStorage.getItem(AUTH_TOKEN_KEY);
+export const clearAuthToken = () => localStorage.setItem(AUTH_TOKEN_KEY, "");
 
 export const handleUnAuthorized = (
   authPath: string,

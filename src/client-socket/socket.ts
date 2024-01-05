@@ -9,14 +9,24 @@ class AppSocket {
     string,
     (response: SocketResponse<any>) => void
   > = {};
+  private unAuthorizedFallbackUrl = "";
 
   client: Socket;
   $isConnected = createStore(false);
 
-  buildAuth() {
+  private buildAuth() {
     return { token: authTools.getAuthToken() };
   }
+  private handleUnAuthorized() {
+    this.client.disconnect();
+    authTools.handleUnAuthorized(this.unAuthorizedFallbackUrl, () => {
+      this.client.auth = this.buildAuth();
+      this.client.connect();
+    });
+  }
+
   connect(url: string, unAuthorizedFallbackUrl?: string) {
+    this.unAuthorizedFallbackUrl = unAuthorizedFallbackUrl;
     const clientUrl = new URL(url);
 
     this.client = io(clientUrl.origin, {
@@ -26,19 +36,14 @@ class AppSocket {
     });
 
     this.client.on("connect_error", (err) => {
-      if (
-        unAuthorizedFallbackUrl &&
-        err.message === SocketErrors.UNAUTHORIZED
-      ) {
-        this.client.disconnect();
-        authTools.handleUnAuthorized(unAuthorizedFallbackUrl, () => {
-          this.client.auth = this.buildAuth();
-          this.client.connect();
-        });
-      }
+      if (unAuthorizedFallbackUrl && err.message === SocketErrors.UNAUTHORIZED)
+        this.handleUnAuthorized();
     });
 
     this.init();
+  }
+  disconnect() {
+    this.handleUnAuthorized();
   }
   private init() {
     this.client.onAny((_, response: SocketResponse) => {
@@ -48,9 +53,10 @@ class AppSocket {
       }
     });
 
-    const socketConnected = createEvent();
-    this.client.on("connect", socketConnected);
-    this.$isConnected.on(socketConnected, () => true);
+    const socketConnected = createEvent<boolean>();
+    this.client.on("connect", () => socketConnected(true));
+    this.client.on("disconnect", () => socketConnected(false));
+    this.$isConnected.on(socketConnected, (_, payload) => payload);
   }
 
   emitWithAnswer<T, V>(actions: string, payload?: T): Promise<V> {
