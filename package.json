@@ -1,6 +1,6 @@
 {
   "name": "@master_kufa/client-tools",
-  "version": "0.22.34",
+  "version": "0.22.35",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MasterKufa/client-tools.git"
