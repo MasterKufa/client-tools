@@ -25,7 +25,7 @@ export const Component = () => {
       </DialogContent>
       <DialogActions>
         <Button
-          variant="contained"
+          variant="outlined"
           onClick={() => {
             confirm.onSubmit();
             actions.close();
