@@ -1,6 +1,6 @@
 {
   "name": "@master_kufa/client-tools",
-  "version": "0.22.37",
+  "version": "0.22.53",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MasterKufa/client-tools.git"
@@ -19,7 +19,7 @@
     "effector-react": "^22.5.3",
     "lodash": "^4.17.21",
     "nanoid": "^4.0.2",
-    "react": "^18.2.0",
+    "react": ">=18",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "socket.io-client": "^4.6.2",
