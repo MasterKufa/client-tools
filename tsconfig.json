@@ -1,20 +1,43 @@
 {
   "compilerOptions": {
-    "jsx": "react",
-    "module": "commonjs",
+    "baseUrl": "./",
     "declaration": true,
-    "removeComments": true,
-    "outDir": "./dist",
-    "allowSyntheticDefaultImports": true,
-    "target": "es2017",
-    "sourceMap": true,
-    "baseUrl": "./src",
+    "noEmit": true,
+    "lib": [
+      "es2021",
+      "ESNext",
+      "dom",
+      "dom.iterable"
+    ],
     "incremental": true,
+    "target": "ESNext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "noImplicitOverride": false,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "strictPropertyInitialization": false,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "importHelpers": true,
+    "skipDefaultLibCheck": true,
+    "isolatedModules": true,
+    "noUnusedParameters": true
+  },
+  "include": [
+    "src",
+    "assets"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
 }

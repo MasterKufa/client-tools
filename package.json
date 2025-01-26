@@ -1,6 +1,7 @@
 {
   "name": "@master_kufa/client-tools",
-  "version": "0.22.61",
+  "version": "0.23.10",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MasterKufa/client-tools.git"
@@ -9,9 +10,10 @@
     "url": "https://github.com/MasterKufa/client-tools/issues"
   },
   "homepage": "https://github.com/MasterKufa/client-tools#readme",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/esm/index.d.ts",
+  "types": "./dist/src/index.d.ts",
+  "main": "./dist/index.es.js",
+  "module": "./dist/index.es.js",
+  "typings": "./dist/src/index.d.ts",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -28,19 +30,18 @@
   "devDependencies": {
     "@types/lodash": "^4.14.195",
     "@typescript-eslint/eslint-plugin": "^5.59.7",
-    "@typescript-eslint/parser": "^5.59.7"
+    "@typescript-eslint/parser": "^5.59.7",
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.11",
+    "vite-plugin-dts": "^4.5.0",
+    "vite-plugin-svgr": "^4.3.0",
+    "vite-tsconfig-paths": "^5.1.4"
   },
   "peerDependencies": {
     "react": ">=18"
   },
   "scripts": {
-    "build": "npm run build:esm && npm run build:cjs",
-    "build:esm": "tsc --outDir dist/esm",
-    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "start": "react-scripts start",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "prepare": "npm run build"
+    "build": "vite build"
   },
   "eslintConfig": {
     "extends": [
@@ -59,5 +60,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/src/index.d.ts"
+    },
+    "./*": "./dist/*"
   }
 }

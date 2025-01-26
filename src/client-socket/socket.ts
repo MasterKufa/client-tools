@@ -26,7 +26,9 @@ class AppSocket {
   }
 
   connect(url: string, unAuthorizedFallbackUrl?: string) {
-    this.unAuthorizedFallbackUrl = unAuthorizedFallbackUrl;
+    if (unAuthorizedFallbackUrl)
+      this.unAuthorizedFallbackUrl = unAuthorizedFallbackUrl;
+
     const clientUrl = new URL(url);
 
     this.client = io(clientUrl.origin, {

@@ -6,7 +6,6 @@ import {
   DialogContentText,
   DialogActions,
 } from "@mui/material";
-import * as React from "react";
 import { $currentConfirm, close } from "./confirm.model";
 import { useUnit } from "effector-react";
 import { Content } from "./styles";

@@ -1,7 +1,6 @@
 import { Snackbar, Alert } from "@mui/material";
 import { useUnit } from "effector-react";
 import { $currentNotification, deleteNotification } from "./notification.model";
-import * as React from "react";
 
 export const Component = () => {
   const currentNotification = useUnit($currentNotification);
